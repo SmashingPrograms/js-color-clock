@@ -1,4 +1,11 @@
 //Converts single-digit numbers to numbers with 0 at the beginning, converts all numbers regardless of that to strings. Conversion back to numbers will happen later.
+
+let isHovering = false;
+
+const clockDisplay = document.querySelector(".clock-display");
+const clockProgressBar = document.querySelector(".clock-progress-bar");
+const clockBackground = document.querySelector(".clock");
+
 function addZeros(unit) {
   const numberAsString = unit.toString();
   const lengthOfNumber = numberAsString.length;
@@ -13,8 +20,6 @@ function toHex(unit) {
   return addZeros(numberAsHexString);
 };
 
-let isHovering = false;
-
 setInterval(function(){
   //updates the time constantly here
   const hours = addZeros(new Date().getHours());
@@ -25,15 +30,12 @@ setInterval(function(){
   // console.log(currentTime);
   const hexString = "#" + toHex(hours) + toHex(minutes) + toHex(seconds);
   const hexTime = "" + toHex(hours) + ":" + toHex(minutes) + ":" + toHex(seconds);
+
   const secondsInOneMinute = 60;
   const secondsPercent = (seconds / secondsInOneMinute) * 100;
   // Approximate length of clock display, used to determine how long the progress bar below it should be at 60 seconds, and what percentage of that later
   const lengthOfClockDisplay = 14;
-  const barPercent = (secondsPercent * lengthOfClockDisplay) / 100; //See math below this function for some scribbled shown work
-
-  const clockDisplay = document.querySelector(".clock-display");
-  const clockProgressBar = document.querySelector(".clock-progress-bar");
-  const clockBackground = document.querySelector(".clock");
+  const barPercent = (secondsPercent * lengthOfClockDisplay) / 100; //See math below setInterval() for some scribbled shown work
 
   clockBackground.style.background = hexString;
 
